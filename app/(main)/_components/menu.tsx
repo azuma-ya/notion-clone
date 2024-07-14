@@ -54,11 +54,11 @@ const Menu = ({ documentId }: MenuProps) => {
         forceMount
       >
         <DropdownMenuItem onClick={onArchive}>
-          <Trash className="size-4 mr-2" />
+          <Trash className="mr-2 size-4" />
           Delte
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <div className="text-xs text-muted-foreground p-2">
+        <div className="p-2 text-xs text-muted-foreground">
           Last edited by: {user?.fullName}
         </div>
       </DropdownMenuContent>

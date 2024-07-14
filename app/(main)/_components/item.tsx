@@ -59,7 +59,7 @@ const Item = ({
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     if (!id) return;
-    const promise = archive({ id });
+    const promise = archive({ id }).then(() => router.push("/documents"));
 
     toast.promise(promise, {
       loading: "Moving to trash...",
@@ -118,7 +118,7 @@ const Item = ({
       {documentIcon ? (
         <div className="shirink-0 mr-2 text-[18px]">{documentIcon}</div>
       ) : (
-        <Icon className="shirink-0 mr-2 h-[18px] text-muted-foreground" />
+        <Icon className="shirink-0 mr-2 size-[18px] text-muted-foreground" />
       )}
       <span className="truncate">{label}</span>
       {isSearch && (
@@ -135,6 +135,7 @@ const Item = ({
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
               <div
                 role="button"
+                /* trunk-ignore(eslint/tailwindcss/classnames-order) */
                 className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
               >
                 <MoreHorizontal className="size-4 text-muted-foreground" />
@@ -147,11 +148,11 @@ const Item = ({
               forceMount
             >
               <DropdownMenuItem onClick={onArchive}>
-                <Trash className="size-4 mr-2" />
+                <Trash className="mr-2 size-4" />
                 Delete
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <div className="text-xs text-muted-foreground p-2">
+              <div className="p-2 text-xs text-muted-foreground ">
                 Last edited by: {user?.fullName}
               </div>
             </DropdownMenuContent>

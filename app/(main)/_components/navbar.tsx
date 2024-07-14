@@ -9,6 +9,7 @@ import type { Id } from "@/convex/_generated/dataModel";
 
 import Banner from "./banner";
 import Menu from "./menu";
+import Publish from "./publish";
 import Title from "./title";
 
 interface NavbarProps {
@@ -25,7 +26,7 @@ const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
 
   if (document === undefined) {
     return (
-      <nav className="bg-background dark:bg-[#1f1f1f] px-3 py-2 w-full flex items-center justify-between w-full">
+      <nav className="flex w-full items-center justify-between bg-background px-3 py-2 dark:bg-[#1f1f1f]">
         <Title.Skeleton />
         <div className="flex items-center gap-x-2">
           <Menu.Skeleton />
@@ -40,7 +41,7 @@ const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
 
   return (
     <>
-      <nav className="bg-background dark:bg-[#1f1f1f] px-3 py-2 w-full flex items-center gap-x-4">
+      <nav className="flex w-full items-center gap-x-4 bg-background px-3 py-2 dark:bg-[#1f1f1f]">
         {isCollapsed && (
           <MenuIcon
             role="button"
@@ -48,9 +49,10 @@ const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
             className="size-6 text-muted-foreground"
           />
         )}
-        <div className="flex items-center justify-between w-full">
+        <div className="flex w-full items-center justify-between">
           <Title initialData={document} />
           <div className="flex items-center gap-x-2">
+            <Publish initialData={document} />
             <Menu documentId={document._id} />
           </div>
         </div>

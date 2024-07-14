@@ -10,7 +10,7 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { type ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
@@ -32,6 +32,7 @@ import TrashBox from "./trash-box";
 import UserItem from "./user-item";
 
 const Navigation = () => {
+  const router = useRouter();
   const search = useSearch();
   const settings = useSettings();
   const params = useParams();
@@ -123,7 +124,9 @@ const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`),
+    );
 
     toast.promise(promise, {
       loading: "Creating a new note...",
@@ -162,11 +165,11 @@ const Navigation = () => {
           <DocumentList />
           <Item onClick={handleCreate} icon={Plus} label="Add a page" />
           <Popover>
-            <PopoverTrigger className="w-full mt-4">
+            <PopoverTrigger className="mt-4 w-full">
               <Item label="Trash" icon={Trash} />
             </PopoverTrigger>
             <PopoverContent
-              className="p-0 w-72"
+              className="w-72 p-0"
               side={isMobile ? "bottom" : "right"}
             >
               <TrashBox />
